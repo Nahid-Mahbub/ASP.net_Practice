@@ -1,6 +1,6 @@
+using DevSkill.Shop.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using practice.Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

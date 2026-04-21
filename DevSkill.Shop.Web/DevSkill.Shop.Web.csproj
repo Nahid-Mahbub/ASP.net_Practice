@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-practice.Web-2f9c59a7-b37b-4b51-b30e-475df10f6261</UserSecretsId>
+    <UserSecretsId>aspnet-DevSkill.Shop.Web-e273cdd9-10ca-4ad0-a10a-c6c7c6de419f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,40 @@
+﻿@model List<DevSkill.Shop.Web.Models.TeamListModel>
+
+@{
+    ViewData["Title"] = "Our Team";
+}
+
+<div class="container py-5">
+
+    <h2 class="text-center mb-5 fw-bold">Meet Our Professional Team</h2>
+
+    <div class="row g-4">
+
+        @foreach (var member in Model)
+        {
+            <div class="col-md-3 col-sm-6">
+
+                <div class="card border-0 shadow-lg h-100 text-center">
+
+                    <img src="@member.ImageUrl"
+                         class="rounded-circle mx-auto mt-4"
+                         style="width:120px;height:120px;object-fit:cover;"
+                         alt="@member.Name" />
+
+                    <div class="card-body">
+
+                        <h5 class="fw-bold">@member.Name</h5>
+                        <p class="text-muted">@member.Designation</p>
+
+                        <span class="badge bg-primary">ID: @member.Id</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
