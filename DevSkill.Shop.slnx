@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="DevSkill.Shop.Application/DevSkill.Shop.Application.csproj" Id="f047dc8a-cc46-4e96-a293-6b4b2da16a17" />
-  <Project Path="DevSkill.Shop.Domain/DevSkill.Shop.Domain.csproj" Id="c9bb1af5-8a7d-4ea1-a406-a00a9c184fb7" />
-  <Project Path="DevSkill.Shop.Infrastructure/DevSkill.Shop.Infrastructure.csproj" Id="38a71203-b2ec-440e-a161-09b9a4b296cc" />
+  <Project Path="src/DevSkill.Shop.Application/DevSkill.Shop.Application.csproj" Id="27fde89f-a136-43fa-bdf5-7243e5fa4230" />
+  <Project Path="src/DevSkill.Shop.Domain/DevSkill.Shop.Domain.csproj" Id="a91ef3bc-9aa5-40d0-b968-cfc3f1d42ada" />
+  <Project Path="src/DevSkill.Shop.Infrastructure/DevSkill.Shop.Infrastructure.csproj" Id="f42397ac-db41-4c5b-a4b4-4a5c58808147" />
   <Project Path="src/DevSkill.Shop.Web/DevSkill.Shop.Web.csproj" Id="1ef6fdd9-a606-4346-a116-9ef8161452e4" />
 </Solution>

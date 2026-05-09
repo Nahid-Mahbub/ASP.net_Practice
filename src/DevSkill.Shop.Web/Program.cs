@@ -1,12 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DevSkill.Shop.Web;
 using DevSkill.Shop.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using DevSkill.Shop.Infrastructure.Extensions;
-
+using DevSkill.Shop.Web;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.File("Logs/web-log-.log", rollingInterval: RollingInterval.Day)
@@ -16,18 +14,21 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    // Add services to the container.
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+
     #region Serilog Configuration
 
     builder.Host.UseSerilog((context, lc) => lc
         .MinimumLevel.Debug()
         .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
         .Enrich.FromLogContext()
-        .ReadFrom.Configuration(context.Configuration));
+        .ReadFrom.Configuration(context.Configuration)
+    );
 
     #endregion
-
-    // Add services to the container.
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
     #region Autofac Configuration
 
@@ -39,15 +40,6 @@ try
 
     #endregion
 
-    #region Dependency Injection Configuration
-
-    builder.Services.AddInfrastructureDependency();
-
-    #endregion
-
-
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -86,9 +78,10 @@ try
     Log.Information("Starting web host");
     app.Run();
 }
+
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Application terminated unexpectedly");
+    Log.Fatal(ex, "Host terminated unexpectedly");
 }
 finally
 {
