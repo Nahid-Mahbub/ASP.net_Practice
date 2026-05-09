@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="9.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DevSkill.Shop.Application\DevSkill.Shop.Application.csproj" />
-    <ProjectReference Include="..\DevSkill.Shop.Domain\DevSkill.Shop.Domain.csproj" />
   </ItemGroup>
 
 </Project>
