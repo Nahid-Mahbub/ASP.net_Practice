@@ -1,8 +1,8 @@
+using DevSkill.Shop.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using practice.Web.Models;
 using System.Diagnostics;
 
-namespace practice.Web.Controllers
+namespace DevSkill.Shop.Web.Controllers
 {
     public class HomeController : Controller
     {
