@@ -8,7 +8,7 @@ namespace practice.Web.Controllers
     {
         public IActionResult Index()
         {
-            var model = new TestModel { Name = "Nahid Mahbub", Email = "Example@gamil.com" };
+            var model = new TestModel { Name = "Nahid Mahbub", Email = "Example@gamil.com", Partial = new PartialModel { Address = "Daffodil Smart City" } };
             return View(model);
         }
 
@@ -17,6 +17,7 @@ namespace practice.Web.Controllers
         {
             var Name = model.Name;
             var Email = model.Email;
+            var Address = model.Partial?.Address;
             return View(model);
         }
     }
