@@ -4,6 +4,16 @@
     ViewData["Title"] = "Test Home";
 }
 
+@section styles
+{
+<style>
+    .custom-style {
+        color: blue;
+        font-weight: bold;
+    }
+</style>
+}
+
 <partial name="_DivPartial" model="Model.Partial" /> @* Partial view *@
 
 <!-- #region Html -->
@@ -52,5 +62,11 @@
 
 </form>
 
+
+@section Scripts {
+    <script>
+        alert("This is a script section.");
+    </script>
+}
 
 <!-- #endregion -->
