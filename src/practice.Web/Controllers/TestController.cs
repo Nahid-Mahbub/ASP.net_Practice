@@ -12,7 +12,7 @@ namespace practice.Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken] //vailete anti forgery token
         public IActionResult Index(TestModel model)
         {
             var Name = model.Name;
