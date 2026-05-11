@@ -8,7 +8,7 @@ namespace practice.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IMembership _membership;
-        public HomeController(IMembership membership) // Dependency Injection of the Membership service 
+        public HomeController([FromKeyedServices("Setup 1")] IMembership membership) // Dependency Injection of the Membership service 
         {
             _membership = membership;
         }

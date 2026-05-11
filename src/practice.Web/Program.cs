@@ -10,7 +10,63 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<IMembership, ImprovedMembership>(); // Code decupling
+#region Dependency Injection Lifetime & Keyed Services Configuration
+
+// ==============================
+// Dependency Injection Lifetimes
+// ==============================
+
+// Scoped:
+// প্রতি HTTP Request এ একবার Instance তৈরি হয়।
+// Database Context বা Request-based Service এর জন্য সবচেয়ে ভালো।
+//builder.Services.AddScoped<IMembership, ImprovedMembership>();
+
+// Singleton:
+// Application চলাকালীন পুরো Lifetime এ একই Instance ব্যবহার হয়।
+// Shared Configuration বা Heavy Service এর জন্য উপযোগী।
+//builder.Services.AddSingleton<IMembership, ImprovedMembership>();
+
+// Transient:
+// যতবার Service Call হবে ততবার নতুন Instance তৈরি হবে।
+// Lightweight ও Stateless Service এর জন্য ভালো।
+//builder.Services.AddTransient<IMembership, ImprovedMembership>();
+
+
+
+// ==========================================
+// Keyed Services (Same Interface, Multiple Implementations)
+// ==========================================
+
+// একই Interface এর একাধিক Implementation আলাদা Key দিয়ে Register করা যায়।
+
+builder.Services.AddKeyedScoped<IMembership, Membership>("Setup 1");
+
+//builder.Services.AddKeyedScoped<IMembership, ImprovedMembership>("Setup 2");
+
+
+
+// ==========================================
+// Parameterized Dependency Injection
+// ==========================================
+
+// Constructor এ Custom Parameter পাঠানোর জন্য Factory Method ব্যবহার করা হয়।
+
+//builder.Services.AddScoped<IMembership, ImprovedMembership>(serviceProvider =>
+//{
+//    return new ImprovedMembership("Trailing parameter");
+//});
+#region Keyed Scoped Service with Parameterized Constructor
+
+// Keyed Scoped Service Register করার সময়ও Factory Method ব্যবহার করা যায়।
+
+builder.Services.AddKeyedScoped<IMembership>("Setup 2", (serviceProvider, key) =>
+{
+    return new ImprovedMembership("Trailing parameter");
+});
+
+#endregion
+
+#endregion
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
