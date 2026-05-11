@@ -55,7 +55,6 @@ builder.Services.AddKeyedScoped<IMembership, Membership>("Setup 1");
 //{
 //    return new ImprovedMembership("Trailing parameter");
 //});
-#region Keyed Scoped Service with Parameterized Constructor
 
 // Keyed Scoped Service Register করার সময়ও Factory Method ব্যবহার করা যায়।
 
@@ -64,7 +63,7 @@ builder.Services.AddKeyedScoped<IMembership>("Setup 2", (serviceProvider, key) =
     return new ImprovedMembership("Trailing parameter");
 });
 
-#endregion
+
 
 #endregion
 
