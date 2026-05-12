@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using practice.Web.Codes;
+using Practice.Web.Codes;
 using practice.Web.Models;
 using System.Security.Cryptography.Pkcs;
 

@@ -1,4 +1,4 @@
-﻿namespace practice.Web.Codes
+﻿namespace Practice.Web.Codes
 {
     public interface IMembership
     {

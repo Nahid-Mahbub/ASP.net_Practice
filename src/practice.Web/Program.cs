@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using practice.Web.Codes;
+using Practice.Web.Codes;
 using practice.Web.Data;
 using Serilog;
 using Autofac;
