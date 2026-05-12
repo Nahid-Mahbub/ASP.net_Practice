@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using practice.Web.Codes;
 using practice.Web.Data;
 using Serilog;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 // Bootstrap Logger Configuration
 Log.Logger = new LoggerConfiguration()
@@ -85,6 +87,31 @@ try
         .ReadFrom.Configuration(context.Configuration)); // Read Serilog configuration from appsettings.json or other configuration sources
 
     #endregion
+
+    #region AutoFac Configuration
+
+    //builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()); // Override the default service provider factory with Autofac
+    //builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    //{
+        // Register your services with Autofac here
+        //containerBuilder.RegisterType<ImprovedMembership>()
+        //.As<Membership>()
+        //.InstancePerLifetimeScope();
+
+        // ASP.NET Core DI vs Autofac Lifetime Mapping
+
+        // AddSingleton()  => SingleInstance()
+        // One instance for the entire application lifetime
+
+        // AddScoped()     => InstancePerLifetimeScope()
+        // One instance per request / lifetime scope
+
+        // AddTransient() => InstancePerDependency()
+        // New instance every time it is resolved
+    //});
+
+    #endregion
+
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
