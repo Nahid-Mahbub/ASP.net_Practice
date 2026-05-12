@@ -18,12 +18,10 @@ namespace practice.Web.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> products = new List<Product>
-            {
-                new Product { Id = 1, Name = "Product 1", Price = 100 },
-                new Product { Id = 2, Name = "Product 2", Price = 200 },
-                new Product { Id = 3, Name = "Product 3", Price = 300 }
-            };
+            //UnitOfWorks uow = new UnitOfWorks();
+            //uow.Products.GetAllProducts(); // Example of using the UnitOfWorks to access the Products repository
+            //uow.save(); // Example of saving changes through the UnitOfWork
+
             Log.Debug("Index action of HomeController is called.");
             return View();
         }
