@@ -2,6 +2,10 @@
 {
     public class Membership : IMembership
     {
+        public Membership()
+        {
+            // Constructor logic if needed
+        }
         public void CreateUserAccount(string username, string password)
         {
             // Here you would typically add code to create a user account in your database..

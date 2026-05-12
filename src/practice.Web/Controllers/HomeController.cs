@@ -2,18 +2,22 @@ using Microsoft.AspNetCore.Mvc;
 using practice.Web.Models;
 using System.Diagnostics;
 using practice.Web.Codes;
+using Serilog;
 
 namespace practice.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IMembership _membership;
-        public HomeController([FromKeyedServices("Setup 1")] IMembership membership) // Dependency Injection of the Membership service 
+        private readonly ILogger<HomeController> _logger;
+        public HomeController([FromKeyedServices("Setup 1")] IMembership membership, ILogger<HomeController> logger) // Dependency Injection of the Membership service, Logger service
         {
             _membership = membership;
+            _logger = logger;
         }
         public IActionResult Index()
         {
+            Log.Debug("Index action of HomeController is called.");
             return View();
         }
 
