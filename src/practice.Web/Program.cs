@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Practice.Web.Codes;
-using practice.Web.Data;
 using Serilog;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Practice.Web;
 using Practice.Infrastructure.Extensions;
+using Practice.Infrastructure.Data;
+using System.Reflection;
+
 
 // Bootstrap Logger Configuration
 Log.Logger = new LoggerConfiguration()
@@ -19,8 +21,13 @@ try
 
     // Add services to the container.
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+
+    #region DbContext Configuration
+
+    var migrationAssembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
+    builder.Services.AddDbContext(connectionString, migrationAssembly);
+
+    #endregion
 
     #region Dependecy Incection
 
