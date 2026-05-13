@@ -5,6 +5,8 @@ using practice.Web.Data;
 using Serilog;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Practice.Web;
+using Practice.Infrastructure.Extensions;
 
 // Bootstrap Logger Configuration
 Log.Logger = new LoggerConfiguration()
@@ -19,6 +21,12 @@ try
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
+
+    #region Dependecy Incection
+
+    builder.Services.AddInfrastructure(); // Extension method to register infrastructure services
+
+    #endregion
 
     #region Dependency Injection Lifetime & Keyed Services Configuration
 
@@ -93,21 +101,24 @@ try
     //builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()); // Override the default service provider factory with Autofac
     //builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     //{
-        // Register your services with Autofac here
-        //containerBuilder.RegisterType<ImprovedMembership>()
-        //.As<Membership>()
-        //.InstancePerLifetimeScope();
+    // Register your services with Autofac here
+    //containerBuilder.RegisterType<ImprovedMembership>()
+    //.As<Membership>()
+    //.InstancePerLifetimeScope();
 
-        // ASP.NET Core DI vs Autofac Lifetime Mapping
+    // ASP.NET Core DI vs Autofac Lifetime Mapping
 
-        // AddSingleton()  => SingleInstance()
-        // One instance for the entire application lifetime
+    // AddSingleton()  => SingleInstance()
+    // One instance for the entire application lifetime
 
-        // AddScoped()     => InstancePerLifetimeScope()
-        // One instance per request / lifetime scope
+    // AddScoped()     => InstancePerLifetimeScope()
+    // One instance per request / lifetime scope
 
-        // AddTransient() => InstancePerDependency()
-        // New instance every time it is resolved
+    // AddTransient() => InstancePerDependency()
+    // New instance every time it is resolved
+
+    // To use in in WebModule.cs, you can register services in the Load method of the module:
+    //containerBuilder.RegisterModule(new WebModule(connectionString));
     //});
 
     #endregion
