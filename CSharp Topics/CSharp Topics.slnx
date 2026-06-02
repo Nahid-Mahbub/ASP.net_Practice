@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="CSharp Topics/Reflection Topics.csproj" />
+  <Project Path="LinqExample/LinqExample.csproj" Id="71bba0a8-cc9e-48c3-b46f-762b7b304cec" />
 </Solution>
