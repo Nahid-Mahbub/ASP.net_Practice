@@ -1,0 +1,226 @@
+﻿@model IEnumerable<DevSkill.Shop.Domain.Entities.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/responsive/3.0.2/css/dataTables.responsive.dataTables.min.css" />
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h2>
+        Category List
+    </h2>
+
+
+    <a asp-action="Create"
+       class="btn btn-success">
+
+        <i class="bi bi-plus-circle"></i>
+        Create Category
+
+    </a>
+
+</div>
+
+
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+
+        @TempData["Success"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+
+        @TempData["Error"]
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+}
+
+
+
+<table id="categoryTable"
+       class="table table-bordered table-hover table-striped">
+
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>
+                Id
+            </th>
+
+            <th>
+                Name
+            </th>
+
+            <th>
+                Active
+            </th>
+
+            <th width="200">
+                Action
+            </th>
+
+        </tr>
+
+    </thead>
+
+
+
+    <tbody>
+
+
+        @if (Model != null && Model.Any())
+        {
+
+            foreach (var item in Model)
+            {
+
+                <tr>
+
+
+                    <td>
+                        @item.Id
+                    </td>
+
+
+                    <td>
+                        @item.Name
+                    </td>
+
+
+                    <td>
+
+                        @if (item.IsActive)
+                        {
+                            <span class="badge bg-success">
+                                Active
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">
+                                Inactive
+                            </span>
+                        }
+
+                    </td>
+
+
+
+                    <td>
+
+
+                        <a asp-action="Edit"
+                           asp-route-id="@item.Id"
+                           class="btn btn-warning btn-sm">
+
+                            <i class="bi bi-pencil-square"></i>
+                            Edit
+
+                        </a>
+
+
+
+                        <a asp-action="Delete"
+                           asp-route-id="@item.Id"
+                           class="btn btn-danger btn-sm">
+
+                            <i class="bi bi-trash"></i>
+                            Delete
+
+                        </a>
+
+
+                    </td>
+
+
+                </tr>
+
+            }
+
+        }
+        else
+        {
+
+            <tr>
+
+                <td colspan="4"
+                    class="text-center text-danger">
+
+                    No Category Found.
+
+                </td>
+
+            </tr>
+
+        }
+
+
+    </tbody>
+
+
+</table>
+
+
+
+
+@section Scripts
+{
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+
+
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#categoryTable').DataTable({
+
+                responsive: true,
+                        paging: true,
+                searching: true,
+                        ordering: true,
+                pageLength: 5,
+                        lengthMenu: [5, 10, 25, 50]
+
+                    });
+
+
+                });
+
+    </script>
+
+}

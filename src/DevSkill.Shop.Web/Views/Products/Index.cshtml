@@ -1,0 +1,252 @@
+﻿@model IEnumerable<DevSkill.Shop.Domain.Entities.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<!-- DataTables Bootstrap 5 -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+
+<style>
+    body {
+        background: #f5f7fb;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+        padding: 18px 25px;
+    }
+
+    .table tbody tr {
+        transition: .25s;
+    }
+
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+    .badge-price {
+        background: #198754;
+        color: #fff;
+        font-size: .9rem;
+        padding: .55rem .8rem;
+    }
+
+    .btn {
+        border-radius: 8px;
+    }
+
+    /* DataTables */
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_length {
+        margin-bottom: 15px;
+    }
+
+        .dataTables_wrapper .dataTables_filter input {
+            border-radius: 8px;
+            margin-left: 8px;
+        }
+
+        .dataTables_wrapper .dataTables_length select {
+            border-radius: 8px;
+        }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0 !important;
+        margin-left: 3px;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+        padding-top: 15px;
+    }
+</style>
+
+<div class="container-fluid mt-4">
+
+    <div class="card">
+
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+
+            <div>
+                <h3 class="mb-0">
+                    <i class="bi bi-box-seam"></i>
+                    Product Management
+                </h3>
+                <small>Manage your products</small>
+            </div>
+
+            <a asp-action="Create" class="btn btn-light">
+                <i class="bi bi-plus-circle-fill"></i>
+                Create Product
+            </a>
+
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["Success"]
+                    <button class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show">
+                    @TempData["Error"]
+                    <button class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <table id="productTable" class="table table-striped table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th width="180">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong class="text-primary">#@item.Id</strong>
+                                </td>
+
+                                <td>
+                                    <i class="bi bi-box-fill text-primary me-2"></i>
+                                    @item.Name
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-price">
+                                        @item.Price.ToString("C")
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @item.CategoryId
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="btn-group">
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-warning btn-sm">
+
+                                            <i class="bi bi-pencil-square"></i>
+
+                                        </a>
+
+                                        <a asp-controller="ProductImage"
+                                           asp-action="Index"
+                                           asp-route-productId="@item.Id"
+                                           class="btn btn-info btn-sm">
+
+                                            <i class="bi bi-images"></i>
+
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-danger btn-sm">
+
+                                            <i class="bi bi-trash"></i>
+
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <i class="bi bi-inbox display-1 text-secondary"></i>
+                                <h5 class="mt-3">No Products Found</h5>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.js"></script>
+
+    <script>
+        $(function() {
+
+            $('#productTable').DataTable({
+
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+
+                language: {
+
+                    search: "",
+                    searchPlaceholder: "🔍 Search products...",
+                    lengthMenu: "Show _MENU_ products",
+                    info: "Showing _START_ to _END_ of _TOTAL_ products",
+                    paginate: {
+                        previous: "←",
+                        next: "→"
+                    }
+
+                }
+
+            });
+
+        });
+    </script>
+
+}

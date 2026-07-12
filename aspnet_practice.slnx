@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="src/Practice.Application/Practice.Application.csproj" Id="12630515-51a1-4471-a176-00e3189bfcb7" />
-  <Project Path="src/Practice.Domain/Practice.Domain.csproj" Id="178bbc54-c8cd-4e98-9900-10ab6a6bec2f" />
-  <Project Path="src/Practice.Infrastructure/Practice.Infrastructure.csproj" Id="bce6010f-d74e-42ff-a5ce-254c609f8d6d" />
-  <Project Path="src/Practice.Web/Practice.Web.csproj" DisplayName="Practice.Web" Id="d407b1a3-8473-463b-a87a-ebc3dd3c7e65" />
-</Solution>
